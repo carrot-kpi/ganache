@@ -84,6 +84,7 @@ import { TrieDB } from "./trie-db";
 import { Trie } from "@ethereumjs/trie";
 import { Ethereum } from "./api-types";
 import { removeEIP3860InitCodeSizeLimitCheck } from "./helpers/common-helpers";
+import { Ethereum } from "./api-types";
 
 const mclInitPromise = mcl.init(mcl.BLS12_381).then(() => {
   mcl.setMapToMode(mcl.IRTF); // set the right map mode; otherwise mapToG2 will return wrong values.
