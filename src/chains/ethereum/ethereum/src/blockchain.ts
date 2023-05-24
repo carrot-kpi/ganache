@@ -613,6 +613,7 @@ export default class Blockchain extends Emittery<BlockchainTypedEvents> {
       gas = options.miner.callGasLimit;
 
     return new RuntimeBlock(
+      this.common,
       Quantity.from((previousHeader.number.toBigInt() || 0n) + 1n),
       previousHeader.parentHash,
       new Address(previousHeader.miner.toBuffer()),
