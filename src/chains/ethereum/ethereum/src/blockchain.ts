@@ -359,7 +359,7 @@ export default class Blockchain extends Emittery<BlockchainTypedEvents> {
           minerOpts,
           txPool.executables,
           this.vm,
-          this.#readyNextBlock
+          this.readyNextBlock
         ));
 
         //#region re-emit miner events:
@@ -627,7 +627,7 @@ export default class Blockchain extends Emittery<BlockchainTypedEvents> {
     );
   };
 
-  #readyNextBlock = (previousBlock: Block, timestamp?: number) => {
+  readyNextBlock = (previousBlock: Block, timestamp?: number) => {
     const previousHeader = previousBlock.header;
     const previousNumber = previousHeader.number.toBigInt() || 0n;
     const minerOptions = this.#options.miner;
@@ -665,7 +665,7 @@ export default class Blockchain extends Emittery<BlockchainTypedEvents> {
     onlyOneBlock: boolean = false,
     timestamp?: number
   ) => {
-    const nextBlock = this.#readyNextBlock(this.blocks.latest, timestamp);
+    const nextBlock = this.readyNextBlock(this.blocks.latest, timestamp);
 
     const transactions = await this.#miner.mine(
       nextBlock,

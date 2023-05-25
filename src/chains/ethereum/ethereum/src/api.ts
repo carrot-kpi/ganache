@@ -2860,20 +2860,22 @@ export default class EthereumApi implements Api {
       }
     }
 
-    const block = new RuntimeBlock(
-      blockchain.common,
-      parentHeader.number,
-      parentHeader.parentHash,
-      blockchain.coinbase,
-      gas,
-      parentHeader.gasUsed,
-      parentHeader.timestamp,
-      options.miner.difficulty,
-      parentHeader.totalDifficulty,
-      blockchain.getMixHash(parentHeader.parentHash.toBuffer()),
-      baseFeePerGasBigInt,
-      KECCAK256_RLP
-    );
+    const block =
+      blockNumber === "latest"
+        ? blockchain.readyNextBlock(parentBlock)
+        : new RuntimeBlock(
+            blockchain.common,
+            parentHeader.number,
+            parentHeader.parentHash,
+            blockchain.coinbase,
+            gas,
+            parentHeader.gasUsed,
+            parentHeader.timestamp,
+            options.miner.difficulty,
+            parentHeader.totalDifficulty,
+            blockchain.getMixHash(parentHeader.parentHash.toBuffer()),
+            baseFeePerGasBigInt
+          );
 
     const simulatedTransaction = {
       gas,
